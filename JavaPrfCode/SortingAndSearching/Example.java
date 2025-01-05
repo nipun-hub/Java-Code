@@ -1,137 +1,116 @@
+import javax.naming.PartialResultException;
 import java.util.Arrays;
-import java.util.Scanner;
 
 class Example {
-    static String HEADER = "=".repeat(40);
-    static Scanner scanner = new Scanner(System.in);
 
-    //    clear terminal
-    public static void clear() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-
-    public static int mainForm(int ...name) {
-        clear();
-        System.out.println(HEADER);
-        System.out.printf("| %25s\n", "Welcome to sms");
-        System.out.println(HEADER);
-        System.out.println(" [1] Add new student");
-        System.out.println(" [2] Add student marks");
-        System.out.println(" [3] View student");
-        System.out.println(" [4] Exit");
-        System.out.print("Input Your Input : ");
-        int number = scanner.nextInt();
-        return number;
-    }
-
-    public static void studentDetails() {
-        loop1:
+    // bubbleSort
+    public static void bubbleSort(int[] arr) {
+        System.out.print("Unsorted array : ");
+        System.out.println(Arrays.toString(arr));
         while (true) {
-            clear();
-            System.out.println(HEADER);
-            System.out.printf("| %25s\n", "Add Student");
-            System.out.println(HEADER);
-
-            System.out.print("\nEnter Id : ");
-            int id = scanner.nextInt();
-
-            System.out.print("Enter student name : ");
-            scanner.nextLine();
-            String name = scanner.nextLine();
-
-            System.out.print("Enter student address : ");
-            String address = scanner.nextLine();
-
-            System.out.print("Enter student baj : ");
-            int baj = scanner.nextInt();
-
-            System.out.println("\nStudent added successfully");
-
-            System.out.print("\nYou wont to back Y/N : ");
-            scanner.nextLine();
-            String response = scanner.nextLine();
-            System.out.println();
-            if (response.equals("y")) return;
+            boolean isSort = false;
+            for (int i = 0; i < arr.length; i++) {
+                if (i == arr.length - 1) break;
+                int temp = arr[i];
+                if (arr[i] > arr[i + 1]) {
+                    arr[i] = arr[i + 1];
+                    arr[i + 1] = temp;
+                    isSort = true;
+                }
+            }
+            if (!isSort) break;
         }
+        System.out.print("sorted array : ");
+        System.out.println(Arrays.toString(arr));
     }
 
-    public static void addStudentMarks() {
-        loop1:
-        while (true) {
-            clear();
-            System.out.println(HEADER);
-            System.out.printf("| %25s\n", "Add Student Marks");
-            System.out.println(HEADER);
 
-            System.out.print("\nEnter Id : ");
-            int id = scanner.nextInt();
+    // selection sort
+    public static void selectionSort(int[] ar) {
+        System.out.print("Unsorted array : ");
+        System.out.println(Arrays.toString(ar));
 
-            System.out.print("Enter student Marks : ");
-            scanner.nextLine();
-            int marks = scanner.nextInt();
+        int lastUnsoldIndex = ar.length - 1;
 
-            System.out.println("\nStudent marks added successfully");
-
-            System.out.print("\nYou wont to back Y/N : ");
-            scanner.nextLine();
-            String response = scanner.nextLine();
-            System.out.println();
-            if (response.equals("y")) return;
+        while (lastUnsoldIndex > 0) {
+            int lagestIndex = 0;
+            for (int currentIndex = 1; currentIndex <= lastUnsoldIndex; currentIndex++) {
+                if (ar[currentIndex] > ar[lagestIndex]) lagestIndex = currentIndex;
+            }
+            int temp = ar[lastUnsoldIndex];
+            ar[lastUnsoldIndex] = ar[lagestIndex];
+            ar[lagestIndex] = temp;
+            lastUnsoldIndex--;
         }
+
+
+        System.out.print("Sorted array : ");
+        System.out.println(Arrays.toString(ar));
     }
 
-    public static void viewStudent() {
-        loop1:
-        while (true) {
-            clear();
-            System.out.println(HEADER);
-            System.out.printf("| %25s\n", "View Student");
-            System.out.println(HEADER);
+    // insertion sort
+    public static void insertionSort(int[] ar) {
+        System.out.print("Unsorted array : ");
+        System.out.println(Arrays.toString(ar));
 
-            System.out.println("-".repeat(65));
-            System.out.printf("|%-10s|%-10s|%-20s|%-20s|\n", "baj", "Id", "name", "Address");
-            System.out.println("-".repeat(65));
-            System.out.printf("|%-10d|%-10d|%-20s|%-20s|\n", 001, 73, "hemal", "kegalle");
-            System.out.printf("|%-10d|%-10d|%-20s|%-20s|\n", 001, 73, "hemal", "kegalle");
-            System.out.printf("|%-10d|%-10d|%-20s|%-20s|\n", 001, 73, "hemal", "kegalle");
-            System.out.printf("|%-10d|%-10d|%-20s|%-20s|\n", 001, 73, "hemal", "kegalle");
-            System.out.printf("|%-10d|%-10d|%-20s|%-20s|\n", 001, 73, "hemal", "kegalle");
-            System.out.printf("|%-10d|%-10d|%-20s|%-20s|\n", 001, 73, "hemal", "kegalle");
-            System.out.printf("|%-10d|%-10d|%-20s|%-20s|\n", 001, 73, "hemal", "kegalle");
-            System.out.printf("|%-10d|%-10d|%-20s|%-20s|\n", 001, 73, "hemal", "kegalle");
-            System.out.println("-".repeat(65));
-
-
-            System.out.print("\nYou wont to back Y/N : ");
-            scanner.nextLine();
-            String response = scanner.nextLine();
-            System.out.println();
-            if (response.equals("y")) return;
+        for (int i = 1; i < ar.length; i++) {
+            int temp = ar[i];
+            int b = i - 1;
+            while (b >= 0 && temp < ar[b]) {
+                ar[b + 1] = ar[b];
+                b--;
+            }
+            ar[b + 1] = temp;
         }
+
+        System.out.print("Sorted array : ");
+        System.out.println(Arrays.toString(ar));
     }
 
-    public static void main(String[] args) {
-        while (true) {
-            clear();
-            int response = mainForm();
-            switch (response) {
-                case 1:
-                    studentDetails();
-                    break;
-                case 2:
-                    addStudentMarks();
-                    break;
-                case 3:
-                    viewStudent();
-                    break;
-                case 4:
-                clear();
-                    return;
-                default:
-                    System.out.println("Invalid Number");
+    public static int linerSearch(int[] arr, int search) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == search) {
+                return i;
             }
         }
+        return -1;
+    }
+
+    public static int binarySearch(int[] ar, int search) {
+        int min = 0;
+        int max = ar.length - 1;
+        while (min <= max) {
+            int middle = min + (max - min) / 2;
+            int value = ar[middle];
+            if (value < search) min = middle + 1;
+            else if (value > search) max = middle - 1;
+            else return middle;
+        }
+        return -1;
+    }
+
+
+    public static void main(String[] args) {
+        int[] arr = {23, 1, 43, 77, 23, 9, 4, 76, 2, 43};
+
+//        array sort
+
+        System.out.print("Unsorted array : " + Arrays.toString(arr));
+
+
+//        bubbleSort(arr);
+//        selectionSort(arr);
+        insertionSort(arr);
+
+        System.out.print("sorted array : " + Arrays.toString(arr));
+
+
+//        array search
+
+//        Liner Search
+        System.out.println(linerSearch(arr, 76));
+
+//        Binary Search
+        System.out.println(binarySearch(arr, 1));
     }
 }
